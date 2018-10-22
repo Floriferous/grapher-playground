@@ -1,7 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import Links, { query } from '/imports/api/links';
+import Links, { query, query2 } from '/imports/api/links';
 
 query.expose({
+  firewall: () => undefined
+});
+query2.expose({
   firewall: () => undefined
 });
 
@@ -32,6 +35,10 @@ Links.addReducers({
   },
   reducer2: {
     body: { reducer: 1 },
+    reduce: ({ reducer }) => reducer + ' world'
+  },
+  reducer3: {
+    body: { reducer: 1, $options: { sort: { createdAt: -1 } } },
     reduce: ({ reducer }) => reducer + ' world'
   }
 });
