@@ -3,5 +3,5 @@ import { Mongo } from 'meteor/mongo';
 export default (Links = new Mongo.Collection('links'));
 
 export const query = Links.createQuery('myQuery', {
-  stuff2: 1
+  reducer2: 1
 });

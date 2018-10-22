@@ -26,12 +26,12 @@ Meteor.startup(() => {
 });
 
 Links.addReducers({
-  stuff: {
+  reducer: {
     body: { title: 1 },
     reduce: ({ title }) => title + ' hello'
   },
-  stuff2: {
-    body: { stuff: 1 },
-    reduce: ({ stuff }) => stuff + ' world'
+  reducer2: {
+    body: { reducer: 1 },
+    reduce: ({ reducer }) => reducer + ' world'
   }
 });

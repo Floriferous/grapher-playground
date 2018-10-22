@@ -5,8 +5,6 @@ import Query from './Query.jsx';
 
 const App = () => (
   <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello />
     <Info />
     <Query />
   </div>
