@@ -15,4 +15,6 @@ const Query = (props: QueryProps) => {
   );
 };
 
+console.log('query type', typeof query2);
+
 export default withQuery(() => query2.clone())(Query);

@@ -38,7 +38,7 @@ Links.addReducers({
     reduce: ({ reducer }) => reducer + ' world'
   },
   reducer3: {
-    body: { reducer: 1, $options: { sort: { createdAt: -1 } } },
-    reduce: ({ reducer }) => reducer + ' world'
+    body: { title: 1, $options: { sort: { createdAt: -1 } } },
+    reduce: ({ title }) => title
   }
 });
