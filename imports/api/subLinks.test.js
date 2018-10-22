@@ -58,8 +58,6 @@ describe('SubLinks', () => {
       const linkId = Links.insert({ subLinkIds: [{ _id: subLinkId }] });
       let link = Links.findOne(linkId);
 
-      expect(link.subLinkIds).to.deep.equal([{ _id: subLinkId }]);
-
       SubLinks.remove(subLinkId);
 
       link = Links.findOne(linkId);
