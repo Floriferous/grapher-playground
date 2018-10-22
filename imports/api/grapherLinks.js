@@ -10,6 +10,17 @@ Links.addLinks({
   }
 });
 
+Links.addReducers({
+  reducer: {
+    body: {
+      subLinkIds: 1
+    },
+    reduce: () => {
+      return 'hello world';
+    }
+  }
+});
+
 SubLinks.addLinks({
   links: {
     collection: Links,
