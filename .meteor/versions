@@ -11,7 +11,7 @@ caching-compiler@1.2.0
 caching-html-compiler@1.1.3
 callback-hook@1.1.0
 check@1.3.1
-cultofcoders:grapher@1.3.7_4
+cultofcoders:grapher@1.3.8
 cultofcoders:grapher-react@0.1.3
 dburles:mongo-collection-instances@0.3.5
 ddp@1.4.0
@@ -69,7 +69,7 @@ react-meteor-data@0.2.16
 reactive-var@1.0.11
 reload@1.2.0
 retry@1.1.0
-reywood:publish-composite@1.5.2
+reywood:publish-composite@1.7.0
 routepolicy@1.1.0
 shell-server@0.4.0
 socket-stream-client@0.2.2
