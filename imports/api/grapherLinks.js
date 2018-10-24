@@ -1,29 +1,53 @@
 import SubLinks from './subLinks';
 import Links from './links';
+import A from './A';
+import B from './B';
+import C from './C';
 
-Links.addLinks({
-  subLinks: {
-    field: 'subLinkIds',
-    collection: SubLinks,
+A.addLinks({
+  B: {
+    field: 'bLinks',
+    collection: B,
     type: 'many',
     metadata: true
   }
 });
 
-Links.addReducers({
-  reducer: {
-    body: {
-      subLinkIds: 1
-    },
-    reduce: () => {
-      return 'hello world';
-    }
+B.addLinks({
+  C: {
+    field: 'cLinks',
+    collection: C,
+    type: 'many',
+    metadata: true,
+    unique: true
+  },
+  A: {
+    collection: A,
+    inversedBy: 'B'
   }
 });
 
-SubLinks.addLinks({
-  links: {
-    collection: Links,
-    inversedBy: 'subLinks'
+C.addLinks({
+  B: {
+    collection: B,
+    inversedBy: 'C'
   }
 });
+
+// Links.addReducers({
+//   reducer: {
+//     body: {
+//       subLinkIds: 1
+//     },
+//     reduce: () => {
+//       return 'hello world';
+//     }
+//   }
+// });
+
+// SubLinks.addLinks({
+//   links: {
+//     collection: Links,
+//     inversedBy: 'subLinks'
+//   }
+// });

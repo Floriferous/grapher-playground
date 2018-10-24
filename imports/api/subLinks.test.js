@@ -2,49 +2,61 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
 
-import Links from './links';
-import SubLinks from './subLinks';
+import A from './A';
+import B from './B';
+import C from './C';
 import './grapherLinks';
+import './server/reducers';
 
-describe('SubLinks', () => {
+describe('metadata bug', () => {
   let subLinkId;
   let linkId;
 
   beforeEach(() => {
-    Links.remove({});
-    SubLinks.remove({});
+    A.remove({});
+    B.remove({});
+    C.remove({});
 
-    subLinkId = SubLinks.insert({});
-    linkId = Links.insert({
-      subLinkIds: [{ _id: subLinkId, array: ['id1', 'id2'] }]
+    cId = C.insert({});
+    bId = B.insert({
+      cLinks: [{ _id: cId, cMeta: ['one', 'two'] }]
+    });
+    aId = A.insert({
+      bLinks: [{ _id: bId, bMeta: ['three', 'four'] }]
     });
   });
 
   describe('queries', () => {
-    it('metadata works without the reducer', () => {
-      const subLink = SubLinks.createQuery({
-        $filters: { _id: subLinkId },
-        links: {
-          _id: 1,
-          reducer: false,
-          subLinks: { _id: 1, links: { _id: 1 } }
+    it('No mongo error', () => {
+      const item = C.createQuery({
+        $filters: { _id: cId },
+        B: {
+          A: { _id: 1 },
+          reducer1: true
         }
       }).fetchOne();
 
-      expect(subLink.links[0].$metadata.array).to.deep.equal(['id1', 'id2']);
+      console.log('C', item);
+      const b = item.B;
+      console.log('B', b);
+      const a = b.A[0];
+      console.log('A', a);
     });
 
-    it('metadata fails with the reducer', () => {
-      const subLink = SubLinks.createQuery({
-        $filters: { _id: subLinkId },
-        links: {
-          _id: 1,
-          reducer: true,
-          subLinks: { _id: 1 }
+    it('mongo error', () => {
+      const item = C.createQuery({
+        $filters: { _id: cId },
+        B: {
+          A: { _id: 1 },
+          reducer2: true
         }
       }).fetchOne();
 
-      expect(subLink.links[0].$metadata.array).to.deep.equal(['id1', 'id2']);
+      console.log('C', item);
+      const b = item.B;
+      console.log('B', b);
+      const a = b.A[0];
+      console.log('A', a);
     });
   });
 });
