@@ -60,11 +60,18 @@ describe('metadata bug', () => {
     });
   });
 
-  describe('remove', () => {
+  describe.skip('remove', () => {
     it('fails', () => {
       C.remove(cId);
 
       expect(B.findOne(bId).cLinks).to.deep.equal([]);
+    });
+  });
+
+  describe('insert', () => {
+    it('fails', () => {
+      const id1 = B.insert({});
+      const id2 = B.insert({});
     });
   });
 });
