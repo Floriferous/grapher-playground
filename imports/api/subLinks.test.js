@@ -26,7 +26,7 @@ describe('metadata bug', () => {
     });
   });
 
-  describe('queries', () => {
+  describe.skip('queries', () => {
     it('No mongo error', () => {
       const item = C.createQuery({
         $filters: { _id: cId },
@@ -57,6 +57,14 @@ describe('metadata bug', () => {
       console.log('B', b);
       const a = b.A[0];
       console.log('A', a);
+    });
+  });
+
+  describe('remove', () => {
+    it('fails', () => {
+      C.remove(cId);
+
+      expect(B.findOne(bId).cLinks).to.deep.equal([]);
     });
   });
 });
