@@ -6,7 +6,6 @@ import { query } from '../api/links';
 type QueryProps = {};
 
 const Query = (props: QueryProps) => {
-  console.log('props', props);
   return (
     <div>
       <h2>This should show the name of all links + hello world at the end:</h2>

@@ -1,10 +1,18 @@
 import { Meteor } from 'meteor/meteor';
 import Links, { query, query2 } from '/imports/api/links';
+import C, { query3 } from '/imports/api/C';
+import A from '/imports/api/A';
+import B from '/imports/api/B';
+import D from '/imports/api/D';
+import '/imports/api/grapherLinks';
 
 query.expose({
   firewall: () => undefined
 });
 query2.expose({
+  firewall: () => undefined
+});
+query3.expose({
   firewall: () => undefined
 });
 
@@ -38,7 +46,29 @@ Links.addReducers({
     reduce: ({ reducer }) => reducer + ' world'
   },
   reducer3: {
-    body: { title: 1, $options: { sort: { createdAt: -1 } } },
+    body: { title: 1 },
     reduce: ({ title }) => title
+  }
+});
+
+Meteor.methods({
+  generate: () => {
+    A.remove({});
+    B.remove({});
+    C.remove({});
+    D.remove({});
+
+    const dId = D.insert({ text: 'I am d' });
+    const cId = C.insert({
+      _id: 'test',
+      text: 'I am c',
+      dLinks: [{ _id: dId }]
+    });
+    const aId = A.insert({ text: 'I am a', dLinks: [{ _id: dId }] });
+    const bId = B.insert({
+      text: 'I am b',
+      aLinks: [{ _id: aId }],
+      cLinks: [{ _id: cId }]
+    });
   }
 });

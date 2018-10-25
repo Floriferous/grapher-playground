@@ -7,8 +7,7 @@ B.addReducers({
         _id: 1,
         B: {
           _id: 1
-        },
-        $metadata: { cMeta: 1 }
+        }
       },
       _id: 1
     },
@@ -19,8 +18,7 @@ B.addReducers({
       A: {
         _id: 1,
         B: {
-          _id: 1,
-          $metadata: { bMeta: 1 }
+          _id: 1
         }
       },
       _id: 1
