@@ -10,7 +10,8 @@ const Query3 = (props: Query3Props) => {
   console.log('query3 data', props.data);
   return (
     <div>
-      <h2>dLinks should not appear in this data I believe?</h2>
+      <h2>Reactive: false</h2>
+      <h3>dLinks should not appear in this data I believe?</h3>
       <button onClick={() => Meteor.call('generate')}>Generate</button>
       {props.data && JSON.stringify(props.data)}
     </div>
