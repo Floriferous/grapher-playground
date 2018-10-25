@@ -12,7 +12,7 @@ const App = () => (
     {/* <Query />
     <Query2 /> */}
     <h1>These 2 queries should display the same data</h1>
-    <Query3 />
+    {/* <Query3 /> */}
     <Query4 />
   </div>
 );

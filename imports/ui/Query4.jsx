@@ -7,7 +7,7 @@ type Query3Props = {};
 
 const Query3 = (props: Query3Props) => {
   console.log('dLinks should not appear in this tree of data');
-  console.log('query3 data', props.data);
+  console.log('query3 data', props);
   return (
     <div>
       <h2>Reactive: true</h2>

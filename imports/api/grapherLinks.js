@@ -6,11 +6,11 @@ import C from './C';
 import D from './D';
 
 A.addLinks({
-  B: {
-    inversedBy: 'A',
+  b: {
+    inversedBy: 'a',
     collection: B
   },
-  D: {
+  d: {
     field: 'dLinks',
     collection: D,
     type: 'many',
@@ -21,13 +21,13 @@ A.addLinks({
 });
 
 B.addLinks({
-  A: {
+  a: {
     field: 'aLinks',
     collection: A,
     type: 'many',
     metadata: true
   },
-  C: {
+  c: {
     field: 'cLinks',
     collection: C,
     type: 'many',
@@ -38,11 +38,11 @@ B.addLinks({
 });
 
 C.addLinks({
-  B: {
+  b: {
     collection: B,
-    inversedBy: 'C'
+    inversedBy: 'c'
   },
-  D: {
+  d: {
     field: 'dLinks',
     collection: D,
     type: 'many',
@@ -51,13 +51,13 @@ C.addLinks({
 });
 
 D.addLinks({
-  A: {
+  a: {
     collection: A,
-    inversedBy: 'D'
+    inversedBy: 'd'
   },
-  C: {
+  c: {
     collection: C,
-    inversedBy: 'D',
+    inversedBy: 'd',
     autoremove: true
   }
 });

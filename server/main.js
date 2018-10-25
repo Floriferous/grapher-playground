@@ -5,6 +5,7 @@ import A from '/imports/api/A';
 import B from '/imports/api/B';
 import D from '/imports/api/D';
 import '/imports/api/grapherLinks';
+import '/imports/api/clientReducers';
 
 query.expose({
   firewall: () => undefined
@@ -62,13 +63,16 @@ Meteor.methods({
     const cId = C.insert({
       _id: 'test',
       text: 'I am c',
-      dLinks: [{ _id: dId }]
+      dLinks: [{ _id: dId, array: ['yo', 'dude'] }]
     });
-    const aId = A.insert({ text: 'I am a', dLinks: [{ _id: dId }] });
+    const aId = A.insert({
+      text: 'I am a',
+      dLinks: [{ _id: dId, array: ['yo', 'dude'] }]
+    });
     const bId = B.insert({
       text: 'I am b',
-      aLinks: [{ _id: aId }],
-      cLinks: [{ _id: cId }]
+      aLinks: [{ _id: aId, array: ['yo', 'dude'] }],
+      cLinks: [{ _id: cId, array: ['yo', 'dude'] }]
     });
   }
 });
