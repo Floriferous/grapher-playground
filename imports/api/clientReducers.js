@@ -5,7 +5,7 @@ import D from './D';
 
 C.addReducers({
   aReducer: {
-    body: { d: { a: { text: 1, $options: { sort: { text: 1 } } } } },
+    body: { d: { a: { text: 1 } } },
     reduce: ({ d = [] }) => d.length > 0 && d[0].a
   },
   dReducer: {

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import Links, { query, query2 } from '/imports/api/links';
-import C, { query3 } from '/imports/api/C';
+import C from '/imports/api/C';
+import { query3, query5 } from '/imports/api/queries';
 import A from '/imports/api/A';
 import B from '/imports/api/B';
 import D from '/imports/api/D';
@@ -14,6 +15,9 @@ query2.expose({
   firewall: () => undefined
 });
 query3.expose({
+  firewall: () => undefined
+});
+query5.expose({
   firewall: () => undefined
 });
 
@@ -52,6 +56,8 @@ Links.addReducers({
   }
 });
 
+let dId;
+
 Meteor.methods({
   generate: () => {
     A.remove({});
@@ -59,7 +65,7 @@ Meteor.methods({
     C.remove({});
     D.remove({});
 
-    const dId = D.insert({ text: 'I am d' });
+    dId = D.insert({ text: 'I am d' });
     const cId = C.insert({
       _id: 'test',
       text: 'I am c',
@@ -73,6 +79,13 @@ Meteor.methods({
       text: 'I am b',
       aLinks: [{ _id: aId, array: ['yo', 'dude'] }],
       cLinks: [{ _id: cId, array: ['yo', 'dude'] }]
+    });
+  },
+  addC: () => {
+    const cId = C.insert({
+      _id: 'test',
+      text: 'I am c',
+      dLinks: [{ _id: dId, array: ['yo', 'dude'] }]
     });
   }
 });
