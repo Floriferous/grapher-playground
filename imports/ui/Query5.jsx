@@ -19,6 +19,10 @@ const Query5 = (props: Query5Props) => {
             Each C should have red and blue text, because the link obviously
             exists
           </li>
+          <li>
+            Change Query5.jsx from reactive:true, to reactive:false to see the
+            real data
+          </li>
         </ul>
         <button onClick={() => Meteor.call('generate')}>Generate</button>
         <button onClick={() => Meteor.call('addC')}>Add a C</button>
