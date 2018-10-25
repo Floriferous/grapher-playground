@@ -56,7 +56,7 @@ Links.addReducers({
   }
 });
 
-let dId;
+const dIds = ['id1', 'id2'];
 
 Meteor.methods({
   generate: () => {
@@ -65,15 +65,13 @@ Meteor.methods({
     C.remove({});
     D.remove({});
 
-    dId = D.insert({ text: 'I am d' });
     const cId = C.insert({
-      _id: 'test',
       text: 'I am c',
-      dLinks: [{ _id: dId, array: ['yo', 'dude'] }]
+      dLinks: []
     });
     const aId = A.insert({
       text: 'I am a',
-      dLinks: [{ _id: dId, array: ['yo', 'dude'] }]
+      dLinks: []
     });
     const bId = B.insert({
       text: 'I am b',
@@ -81,11 +79,29 @@ Meteor.methods({
       cLinks: [{ _id: cId, array: ['yo', 'dude'] }]
     });
   },
-  addC: () => {
+  addC: nb => {
+    const count = C.find({}).count();
+    const dCount = D.find({}).count();
+
+    const random = () => Math.floor(dCount * Math.random());
+    let links = [];
+
+    for (let index = 0; index < random(); index++) {
+      const dId = random();
+      links.push({ _id: 'id' + dId, array: ['yo' + dId, 'dude' + dId] });
+    }
+
     const cId = C.insert({
-      _id: 'test',
-      text: 'I am c',
-      dLinks: [{ _id: dId, array: ['yo', 'dude'] }]
+      text: 'I am c ' + count,
+      dLinks: links
     });
+  },
+  addD: () => {
+    const count = D.find({}).count();
+    const newId = D.insert({ _id: 'id' + count, text: 'I am d ' + count });
+    console.log('newId', newId);
+
+    A.update({}, { $push: { dLinks: { _id: newId, array: ['yo', 'dude'] } } });
+    D.update({}, { $push: { dLinks: { _id: newId, array: ['yo', 'dude'] } } });
   }
 });

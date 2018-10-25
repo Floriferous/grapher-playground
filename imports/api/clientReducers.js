@@ -10,6 +10,6 @@ C.addReducers({
   },
   dReducer: {
     body: { d: { text: 1 } },
-    reduce: ({ d = [] }) => d.length > 0 && d[0].text
+    reduce: ({ d = [] }) => (d.length > 0 ? d[0].text : 'nothing')
   }
 });

@@ -1,3 +1,4 @@
+import A from './A';
 import C from './C';
 
 export const query3 = C.createQuery('myQuery3', {
@@ -14,12 +15,12 @@ export const query3 = C.createQuery('myQuery3', {
   }
 });
 
-export const query5 = C.createQuery('myQuery5', {
+export const query5 = A.createQuery('myQuery5', {
   $filter({ filters, params }) {},
   text: 1,
   d: {
     _id: 1,
     text: 1,
-    a: { text: 1 }
+    c: { text: 1, dReducer: 1 }
   }
 });
