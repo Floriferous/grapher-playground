@@ -1,11 +1,30 @@
-import { Mongo } from 'meteor/mongo';
+import Comments from './Comments';
+import Posts from './Posts';
 
-export default (Links = new Mongo.Collection('links'));
-
-export const query = Links.createQuery('myQuery', {
-  reducer2: 1
+Posts.addLinks({
+  comments: {
+    type: 'many',
+    collection: Comments,
+    field: 'commentIds'
+  }
 });
 
-export const query2 = Links.createQuery('myQuery2', {
-  reducer3: 1
+Comments.addLinks({
+  posts: {
+    type: 'one',
+    collection: Posts,
+    inversedBy: 'comments'
+  },
+  user: {
+    type: 'one',
+    collection: Meteor.users,
+    field: 'userId'
+  }
+});
+
+Meteor.users.addLinks({
+  comments: {
+    inversedBy: 'user',
+    collection: Comments
+  }
 });

@@ -1,44 +1,60 @@
 import { Meteor } from 'meteor/meteor';
-import Links, { query, query2 } from '/imports/api/links';
+import { Match } from 'meteor/check';
 
-query.expose({
-  firewall: () => undefined
-});
-query2.expose({
-  firewall: () => undefined
+import Posts from '/imports/api/Posts';
+import Comments from '/imports/api/Comments';
+import { commentQuery, postQuery, currentUser } from '/imports/api/queries';
+import '/imports/api/links';
+import { Accounts } from 'meteor/accounts-base';
+
+commentQuery.expose({
+  firewall: (userId, params) => {
+    params.userId = userId;
+  },
+  embody: {
+    $filter({ filters, params }) {
+      console.log('params', params);
+      filters.userId = params.userId;
+      filters._id = params.commentId;
+      console.log('filters', filters);
+    }
+  },
+  validateParams: {
+    userId: Match.Maybe(String),
+    commentId: Match.Maybe(String)
+  }
 });
 
-function insertLink(title, url) {
-  Links.insert({ title, url, createdAt: new Date() });
-}
+postQuery.expose({});
+currentUser.expose({
+  firewall(userId, params) {
+    params.userId = userId;
+  },
+  embody: {
+    $filter({ filters, params }) {
+      filters._id = params.userId;
+    }
+  },
+  validateParams: { userId: Match.Maybe(String) }
+});
 
 Meteor.startup(() => {
+  if (Meteor.users.find({}).count() === 0) {
+    Accounts.createUser({ email: 'test@test.com', password: '123456' });
+  }
+
+  let { _id: userId } = Meteor.users.find({}).fetch()[0];
+
+  Posts.remove({});
+  Comments.remove({});
+
+  // const postId = Posts.insert({ text: 'hello friends', userId });
+  const commentId1 = Comments.insert({ text: 'Comment 1', userId });
+  const commentId2 = Comments.insert({ text: 'Comment 2', userId });
+
+  const link = Meteor.users.getLink(userId, 'comments');
+
+  link.add(commentId1);
+  link.add(commentId2);
   // If the Links collection is empty, add some data.
-  if (Links.find().count() === 0) {
-    insertLink(
-      'Do the Tutorial',
-      'https://www.meteor.com/tutorials/react/creating-an-app'
-    );
-
-    insertLink('Follow the Guide', 'http://guide.meteor.com');
-
-    insertLink('Read the Docs', 'https://docs.meteor.com');
-
-    insertLink('Discussions', 'https://forums.meteor.com');
-  }
-});
-
-Links.addReducers({
-  reducer: {
-    body: { title: 1 },
-    reduce: ({ title }) => title + ' hello'
-  },
-  reducer2: {
-    body: { reducer: 1 },
-    reduce: ({ reducer }) => reducer + ' world'
-  },
-  reducer3: {
-    body: { title: 1, $options: { sort: { createdAt: -1 } } },
-    reduce: ({ title }) => title
-  }
 });
