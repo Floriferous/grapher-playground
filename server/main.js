@@ -48,13 +48,24 @@ Meteor.startup(() => {
   Posts.remove({});
   Comments.remove({});
 
-  // const postId = Posts.insert({ text: 'hello friends', userId });
   const commentId1 = Comments.insert({ text: 'Comment 1', userId });
+  console.log('commentId1', commentId1);
   const commentId2 = Comments.insert({ text: 'Comment 2', userId });
+  console.log('commentId2', commentId2);
+  const commentId3 = Comments.insert({ text: 'Comment 3' });
+  console.log('commentId3', commentId3);
 
   const link = Meteor.users.getLink(userId, 'comments');
 
   link.add(commentId1);
   link.add(commentId2);
-  // If the Links collection is empty, add some data.
 });
+
+// Meteor._printSentDDP = true;
+
+const OGpublish = Meteor.server.publish_handlers.named_query_singleComment;
+Meteor.server.publish_handlers.named_query_singleComment = function(...args) {
+  console.log('publish my dude!', args);
+
+  OGpublish.call(this, ...args);
+};
