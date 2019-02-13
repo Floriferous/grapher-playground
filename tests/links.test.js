@@ -44,7 +44,7 @@ describe('links', () => {
 
     const result = C.createQuery({
       b: {
-        c: {
+        a: {
           _id: 1
         }
       }
