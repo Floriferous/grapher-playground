@@ -37,7 +37,7 @@ C.addLinks({
   }
 });
 
-describe('links', () => {
+describe.skip('links', () => {
   it('should not throw when an unknown id is set as a link', () => {
     const bId = B.insert({});
     const cId = C.insert({ bLinks: [{ _id: 'unknownId' }, { _id: bId }] });
