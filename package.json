@@ -19,6 +19,6 @@
       "client": "client/main.jsx",
       "server": "server/main.js"
     },
-    "testModule": "tests/weirdLink.test.js"
+    "testModule": "tests/deep-query.test.js"
   }
 }
