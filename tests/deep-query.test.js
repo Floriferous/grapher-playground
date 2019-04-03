@@ -14,7 +14,7 @@ A.addReducers({
       }
     },
     reduce: () => {
-      return 'val';
+      return 'hello';
     }
   }
 });
@@ -39,8 +39,8 @@ describe('deep-query', () => {
 
     console.log('result with reducer', JSON.stringify(result[0], null, 2));
 
-    expect(result[0].field.main.min).to.not.equal(undefined)
-    expect(result[0].field.main.max).to.not.equal(undefined)
+    expect(result[0].field.main.min).to.not.equal(undefined);
+    expect(result[0].field.main.max).to.not.equal(undefined); // fails!
   });
 
   it('does work without the reducer', () => {
@@ -58,7 +58,7 @@ describe('deep-query', () => {
 
     console.log('result without reducer', JSON.stringify(result[0], null, 2));
 
-    expect(result[0].field.main.min).to.not.equal(undefined)
-    expect(result[0].field.main.max).to.not.equal(undefined)
+    expect(result[0].field.main.min).to.not.equal(undefined);
+    expect(result[0].field.main.max).to.not.equal(undefined);
   });
 });
